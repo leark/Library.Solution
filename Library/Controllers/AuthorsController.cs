@@ -47,7 +47,20 @@ namespace Library.Controllers
     {
       Author author = _db.Authors.FirstOrDefault(a => a.AuthorId == id);
       ViewBag.PageTitle = $"Author {author.Name}";
+
+      ViewBag.BookId = new SelectList(_db.Books, "BookId", "Title");
       return View(author);
+    }
+
+    [HttpPost]
+    public ActionResult Details(AuthorBook ab)
+    {
+      if (_db.AuthorBook.FirstOrDefault(a => a.AuthorId == ab.AuthorId && a.BookId == ab.BookId) == null)
+      {
+        _db.AuthorBook.Add(ab);
+        _db.SaveChanges();
+      }
+      return RedirectToAction("Details", new { id = ab.AuthorId });
     }
 
     public ActionResult Edit(int id)
@@ -79,6 +92,18 @@ namespace Library.Controllers
       _db.Authors.Remove(author);
       _db.SaveChanges();
       return RedirectToAction("Index");
+    }
+
+    [HttpPost]
+    public ActionResult DeleteAuthor(int authorBookId)
+    {
+      var ab = _db.AuthorBook.FirstOrDefault(a => a.AuthorBookId == authorBookId);
+      if (ab != null)
+      {
+        _db.AuthorBook.Remove(ab);
+        _db.SaveChanges();
+      }
+      return RedirectToAction("Details", new { id = ab.AuthorId });
     }
   }
 }

@@ -11,3 +11,7 @@ div#footer {
 label {
   margin-right: 5px;
 }
+
+.form-inline {
+  display: inline;
+}

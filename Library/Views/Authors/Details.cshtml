@@ -1,7 +1,7 @@
 @{
   Layout = "_Layout";
 }
-
+@using Library.Models
 @model Library.Models.Author
 
 <h2>Author Details</h2>
@@ -9,6 +9,38 @@
 <h3>Name: @Model.Name</h3>
 <hr />
 
+@if (Model.JoinEntities.Count == 0)
+{
+  <h4>@Model.Name has written no books in this library.</h4>
+}
+else
+{
+  <h4>@Model.Name has written...</h4>
+  <ul>
+    @foreach (AuthorBook item in Model.JoinEntities)
+    {
+      <li>@item.Book.Title
+        @using (Html.BeginForm("DeleteAuthor", "Authors", FormMethod.Post, new { @class = "form-inline" }))
+        {
+          @Html.Hidden("AuthorBookId", item.AuthorBookId)
+          <input type="submit" value="Delete" class="btn btn-dark" />
+        }
+      </li>
+    }
+  </ul>
+}
+<hr />
+<h4>Associate Books to @Model.Name</h4>
+@using (Html.BeginForm())
+{
+  @Html.Hidden("AuthorId", Model.AuthorId)
+  <div class="mb-3">
+    @Html.Label("Title")
+    @Html.DropDownList("BookId", ViewBag.BookId, null, new { required = "required " })
+  </div>
+  <input type="submit" value="Add Book">
+}
+<hr />
 <p>@Html.ActionLink("Edit Author", "Edit", new { id = Model.AuthorId })</p>
 <p>@Html.ActionLink("Delete Author", "Delete", new { id = Model.AuthorId })</p>
 <p>@Html.ActionLink("Back to Authors", "Index")</p>

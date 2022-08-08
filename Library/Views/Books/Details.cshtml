@@ -7,6 +7,19 @@
 <h2>Book Details</h2>
 <hr />
 <h3>@Html.DisplayNameFor(model => model.Title): @Html.DisplayFor(model => model.Title)</h3>
+<h4>Authors:</h4>
+<ul>
+  @foreach (var join in Model.JoinEntities)
+  {
+    <li>@join.Author.Name
+      @using (Html.BeginForm("DeleteAuthor", "Books", FormMethod.Post, new { @class = "form-inline" }))
+      {
+        @Html.Hidden("joinId", @join.AuthorBookId)
+        <input type="submit" value="Delete" class="btn btn-dark" />
+      }
+    </li>
+  }
+</ul>
 <hr />
 
 <p>@Html.ActionLink("Add an Author", "AddAuthor", new { id = Model.BookId })</p>
