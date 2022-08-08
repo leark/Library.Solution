@@ -1,0 +1,25 @@
+@{
+  Layout = "_Layout";
+}
+
+@using Library.Models;
+@model IEnumerable<Library.Models.Copy>
+
+<h1>Copies</h1>
+
+@if (Model.Any())
+{
+  <ul>
+    @foreach (Copy copy in Model)
+    {
+      <li>@Html.ActionLink($"{copy.Book.Title} : {copy.CopyId}", "Details", new { id = copy.CopyId })</li>
+    }
+  </ul>
+}
+else
+{
+  <h3>No books have been added yet.</h3>
+}
+<hr />
+<p>@Html.ActionLink("Add new copy", "Create")</p>
+<p>@Html.ActionLink("Go Back Home", "Index", "Home")</p>

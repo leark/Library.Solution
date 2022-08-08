@@ -1,0 +1,18 @@
+@{
+  Layout = "_Layout";
+}
+
+@model Library.Models.Copy
+
+<h4>Add new copy of a book</h4>
+
+@using (Html.BeginForm())
+{
+  <div class="mb-3">
+    @Html.Label("Title")
+    @Html.DropDownList("BookId", ViewBag.BookId, null, new { required = "required " })
+  </div>
+  <input type="submit" value="Add new copy" class="btn btn-dark" />
+}
+
+<p>@Html.ActionLink("Show all copies", "Index")</p>
