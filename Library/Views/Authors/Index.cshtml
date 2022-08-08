@@ -1,0 +1,24 @@
+@{
+  Layout = "_Layout";
+}
+@using Library.Models;
+@model IEnumerable<Library.Models.Author>
+
+<h2>List of All Authors</h2>
+<hr />
+@if (Model.Any())
+{
+  <ul>
+    @foreach (Author author in Model)
+    {
+      <li>@Html.ActionLink($"{author.Name}", "Details", new { id = author.AuthorId })</li>
+    }
+  </ul>
+}
+else
+{
+  <p><strong>There are no authors registered in this library.</strong></p>
+}
+<hr />
+<p>@Html.ActionLink("Add New Author", "Create")</p>
+<p>@Html.ActionLink("Go Back Home", "Index", "Home")</p>

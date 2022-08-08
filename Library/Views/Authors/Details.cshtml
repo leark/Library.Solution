@@ -1,0 +1,14 @@
+@{
+  Layout = "_Layout";
+}
+
+@model Library.Models.Author
+
+<h2>Author Details</h2>
+<hr />
+<h3>Name: @Model.Name</h3>
+<hr />
+
+<p>@Html.ActionLink("Edit Author", "Edit", new { id = Model.AuthorId })</p>
+<p>@Html.ActionLink("Delete Author", "Delete", new { id = Model.AuthorId })</p>
+<p>@Html.ActionLink("Back to Authors", "Index")</p>

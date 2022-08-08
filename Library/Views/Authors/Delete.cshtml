@@ -1,0 +1,13 @@
+@{
+  Layout = "_Layout";
+}
+
+<h2>Delete @Model.Name?</h2>
+<hr />
+<h4>Are you sure?</h4>
+@using (Html.BeginForm())
+{
+  <input class="btn btn-dark" type="submit" value="Yes Delete @Model.Name" />
+}
+<hr />
+<p>@Html.ActionLink("Back to Details", "Details", new { id = Model.AuthorId })</p>

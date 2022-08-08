@@ -9,7 +9,7 @@ namespace Library.Models
       this.JoinEntities = new HashSet<AuthorBook>();
     }
 
-    public int BookId { get; set; }
+    public int AuthorId { get; set; }
     public string Name { get; set; }
 
     public virtual ICollection<AuthorBook> JoinEntities { get; }
