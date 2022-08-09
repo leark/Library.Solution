@@ -1,7 +1,7 @@
 @{
   Layout = "_Layout";
 }
-
+@using Library.Models
 @model Library.Models.Book
 
 <h2>Book Details</h2>
@@ -22,8 +22,25 @@
 </ul>
 <hr />
 
-<p>@Html.ActionLink("Add an Author", "AddAuthor", new { id = Model.BookId })</p>
+<ul>
+  @foreach (Copy copy in ViewBag.Copies)
+  {
+  <li>
+    @Model.Title (ID: @copy.CopyId) |
+    @if (copy.Available)
+    {
+      @:Status: <span class="available">Available</span>
+    }
+    else
+    {
+      @:Status: <span class="unavailable">Unavailable</span>
+    }
+  </li>
+  }
+</ul>
+<hr />
 
+<p>@Html.ActionLink("Add an Author", "AddAuthor", new { id = Model.BookId })</p>
 <p>@Html.ActionLink("Back to list", "Index")</p>
 <p>@Html.ActionLink("Edit Book", "Edit", new { id = Model.BookId })</p>
 <p>@Html.ActionLink("Delete Book", "Delete", new { id = Model.BookId })</p>

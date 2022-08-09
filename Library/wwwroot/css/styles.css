@@ -15,3 +15,11 @@ label {
 .form-inline {
   display: inline;
 }
+
+.available {
+  color: green;
+}
+
+.unavailable {
+  color: red;
+}

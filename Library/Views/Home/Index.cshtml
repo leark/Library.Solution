@@ -1,9 +1,17 @@
 @{
   Layout = "_Layout";
 }
+@using System.Security.Claims
 
 <h1>Welcome to the Library!</h1>
 <p>@Html.ActionLink("View Books", "Index", "Books")</p>
 <p>@Html.ActionLink("View Book Copies", "Index", "Copies")</p>
 <p>@Html.ActionLink("View Authors", "Index", "Authors")</p>
+@if (User.Identity.IsAuthenticated)
+{
+<p>@Html.ActionLink("Log out", "Index", "Account")</p>
+}
+else
+{
 <p>@Html.ActionLink("Create an account", "Index", "Account")</p>
+}

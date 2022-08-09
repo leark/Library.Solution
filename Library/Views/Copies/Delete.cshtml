@@ -1,0 +1,24 @@
+@{
+  Layout = "_Layout";
+}
+
+@model Library.Models.Copy
+
+<h2>Are you sure you want to delete this?</h2>
+
+<h3>@Html.DisplayNameFor(model => model.Book.Title): @Html.DisplayFor(model => model.Book.Title)</h3>
+<h3>@Html.DisplayNameFor(model => model.CopyId): @Html.DisplayFor(model => model.CopyId)</h3>
+<h3>@Html.DisplayNameFor(model => model.Available) : @Html.DisplayFor(model => model.Available)</h3>
+@using (Html.BeginForm())
+{
+  @if(Model.Available)
+  {
+    <input type="submit" value="Delete" />
+  }
+  else
+  {
+    <p>This book is checked out.</p>
+    @Html.ActionLink("Back to Details", "Details", new { id = Model.CopyId})
+  }
+}
+@Html.ActionLink("Back to List", "Index")

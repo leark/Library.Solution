@@ -31,7 +31,7 @@ _Requires console application such as Git Bash, Terminal, or PowerShell_
 
     ``cd Library.Solution``
 
-* You should now have a folder `VendorOrderTracker.Solution` with the following structure.
+* You should now have a folder `Library.Solution` with the following structure.
     <pre>Library.Solution
     ├── .gitignore 
     ├── ... 

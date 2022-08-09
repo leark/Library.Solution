@@ -1,0 +1,22 @@
+@{
+  Layout = "_Layout";
+}
+
+@model Library.Models.Copy
+
+<h2>Details of Copy of @Model.Book.Title</h2>
+<hr />
+<h3>@Html.DisplayNameFor(model => model.Book.Title): @Html.ActionLink($"{Model.Book.Title}", "Details", "Books", new { id = Model.BookId })</h3>
+@if (Model.Available)
+{
+  <h3><span class="available">This book is available to be checked out.</span></h3>
+}
+else
+{
+  <h3><span class="unavailable">This book is not available.</span></h3>
+}
+<hr />
+
+<p>@Html.ActionLink("Edit Copy", "Edit", new { id = Model.CopyId })</p>
+<p>@Html.ActionLink("Delete Copy", "Delete", new { id = Model.CopyId })</p>
+<p>@Html.ActionLink("Back to list", "Index")</p>

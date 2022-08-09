@@ -50,6 +50,7 @@ namespace Library.Controllers
           .Include(book => book.JoinEntities)
           .ThenInclude(join => join.Author)
           .FirstOrDefault(book => book.BookId == id);
+      ViewBag.Copies = _db.Copies.Where(copy => copy.BookId == id);
       return View(thisBook);
     }
 
