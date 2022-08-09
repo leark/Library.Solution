@@ -11,18 +11,32 @@ using System.Security.Claims;
 
 namespace Library.Controllers
 {
+  [Authorize]
   public class BooksController : Controller
   {
     private readonly LibraryContext _db;
+    private readonly UserManager<ApplicationUser> _userManager;
 
-    public BooksController(LibraryContext db)
+    public BooksController(UserManager<ApplicationUser> userManager, LibraryContext db)
     {
+      _userManager = userManager;
       _db = db;
     }
 
-    public ActionResult Index()
+    [AllowAnonymous]
+    public async Task<ActionResult> Index()
     {
-      return View(_db.Books.ToList());
+      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      IEnumerable<Book> books = _db.Books.ToList();
+      if (userId != null)
+      {
+        var currentUser = await _userManager.FindByIdAsync(userId);
+        IEnumerable<Book> userBooks = _db.Books.Where(book => book.User.Id == currentUser.Id).ToList();
+        books = _db.Books.Where(book => book.User.Id != currentUser.Id).ToList();
+        return View((books, userBooks));
+      }
+      IEnumerable<Book> emptyList = new List<Book>();
+      return View((books, emptyList));
     }
 
     public ActionResult Create()
@@ -32,8 +46,11 @@ namespace Library.Controllers
     }
 
     [HttpPost]
-    public ActionResult Create(Book book, int AuthorId)
+    public async Task<ActionResult> Create(Book book, int AuthorId)
     {
+      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      var currentUser = await _userManager.FindByIdAsync(userId);
+      book.User = currentUser;
       _db.Books.Add(book);
       _db.SaveChanges();
       if (AuthorId != 0)

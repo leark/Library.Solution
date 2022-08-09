@@ -11,6 +11,7 @@ namespace Library.Models
 
     public int BookId { get; set; }
     public string Title { get; set; }
+    public virtual ApplicationUser User { get; set; }
 
     public virtual ICollection<AuthorBook> JoinEntities { get; }
   }

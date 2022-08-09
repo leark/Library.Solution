@@ -1,0 +1,25 @@
+@*@{
+  Layout = "_Layout";
+}
+
+@using Library.Models;
+@model IEnumerable<Library.Models.Checkout>
+
+<h1>Books</h1>
+
+@if (Model.Any())
+{
+  <ul>
+    @foreach (Checkout checkout in Model)
+    {
+      <li>@Html.ActionLink($"{checkout.CheckoutId} : {checkout.CheckoutDate}", "Details", new { id = checkout.CheckoutId })</li>
+    }
+  </ul>
+}
+else
+{
+  <h3>No checkouts have been created yet.</h3>
+}
+<hr />
+<p>@Html.ActionLink("Add new checkout", "Create")</p>
+<p>@Html.ActionLink("Go Back Home", "Index", "Home")</p>*@

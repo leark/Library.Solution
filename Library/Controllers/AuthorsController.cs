@@ -14,9 +14,11 @@ namespace Library.Controllers
   public class AuthorsController : Controller
   {
     private readonly LibraryContext _db;
+    private readonly UserManager<ApplicationUser> _userManager;
 
-    public AuthorsController(LibraryContext db)
+    public AuthorsController(UserManager<ApplicationUser> userManager, LibraryContext db)
     {
+      _userManager = userManager;
       _db = db;
     }
 
@@ -26,12 +28,14 @@ namespace Library.Controllers
       return View(_db.Authors.ToList());
     }
 
+    [Authorize]
     public ActionResult Create()
     {
       ViewBag.PageTitle = "Add New Author";
       return View();
     }
 
+    [Authorize]
     [HttpPost]
     public ActionResult Create(Author author)
     {
@@ -52,6 +56,7 @@ namespace Library.Controllers
       return View(author);
     }
 
+    [Authorize]
     [HttpPost]
     public ActionResult Details(AuthorBook ab)
     {
@@ -63,6 +68,7 @@ namespace Library.Controllers
       return RedirectToAction("Details", new { id = ab.AuthorId });
     }
 
+    [Authorize]
     public ActionResult Edit(int id)
     {
       Author author = _db.Authors.FirstOrDefault(a => a.AuthorId == id);
@@ -70,6 +76,7 @@ namespace Library.Controllers
       return View(author);
     }
 
+    [Authorize]
     [HttpPost]
     public ActionResult Edit(Author author)
     {
@@ -78,6 +85,7 @@ namespace Library.Controllers
       return RedirectToAction("Details", new { id = author.AuthorId });
     }
 
+    [Authorize]
     public ActionResult Delete(int id)
     {
       Author author = _db.Authors.FirstOrDefault(a => a.AuthorId == id);
@@ -85,6 +93,7 @@ namespace Library.Controllers
       return View(author);
     }
 
+    [Authorize]
     [HttpPost, ActionName("Delete")]
     public ActionResult Deleted(int id)
     {
@@ -94,6 +103,7 @@ namespace Library.Controllers
       return RedirectToAction("Index");
     }
 
+    [Authorize]
     [HttpPost]
     public ActionResult DeleteAuthor(int authorBookId)
     {

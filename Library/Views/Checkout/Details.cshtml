@@ -1,0 +1,14 @@
+@*@{
+  Layout = "_Layout";
+}
+@using Library.Models
+@model Library.Models.Checkout
+
+<h2>Checkout Details</h2>
+<hr />
+
+<hr />
+
+<p>@Html.ActionLink("Back to List", "Index")</p>
+<p>@Html.ActionLink("Edit Checkout", "Edit", new { id = Model.CheckoutId })</p>
+<p>@Html.ActionLink("Delete Checkout", "Delete", new { id = Model.CheckoutId })</p>*@

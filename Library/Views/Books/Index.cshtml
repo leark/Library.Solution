@@ -3,14 +3,36 @@
 }
 
 @using Library.Models;
-@model IEnumerable<Library.Models.Book>
+@model (IEnumerable<Library.Models.Book> books, IEnumerable<Library.Models.Book> userBooks)
 
-<h1>Books</h1>
-
-@if (Model.Any())
+@if (User.Identity.IsAuthenticated)
 {
+  <h1>Books added by @User.Identity.Name</h1>
+  @if (Model.userBooks.Any())
+  {
+      <ul>
+      @foreach (Book book in Model.userBooks)
+      {
+        <li>@Html.ActionLink($"{book.Title}", "Details", new { id = book.BookId })</li>
+      }
+    </ul>
+  }
+  else
+  {
+    <h3>User has not added any books.</h3>
+  }
+}
+else
+{
+  <h1>All the books in the library system.</h1>
+}
+
+@if (Model.books.Any())
+{
+  <hr />
+  <h3>Books added by other librarians.</h3>
   <ul>
-    @foreach (Book book in Model)
+    @foreach (Book book in Model.books)
     {
       <li>@Html.ActionLink($"{book.Title}", "Details", new { id = book.BookId })</li>
     }
@@ -18,7 +40,7 @@
 }
 else
 {
-  <h3>No books have been added yet.</h3>
+  <h3>No books have been added to the library system yet.</h3>
 }
 <hr />
 <p>@Html.ActionLink("Add new book", "Create")</p>
