@@ -1,0 +1,20 @@
+@{
+  ViewBag.PageTitle = "Create New Role";
+  Layout = "_Layout";
+}
+
+@using Library.ViewModels
+
+@model CreateRoleViewModel
+
+<h2>Register a new role</h2>
+<hr />
+@using (Html.BeginForm())
+{
+  @Html.LabelFor(user => user.RoleName)
+  @Html.TextBoxFor(user=> user.RoleName)
+
+  <input type="submit" value="Create Role" />
+}
+
+<p>@Html.ActionLink("Go Back Home", "Index", "Home")</p>

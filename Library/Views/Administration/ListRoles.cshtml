@@ -1,0 +1,30 @@
+@{
+  ViewBag.PageTitle = "View All Roles";
+  Layout = "_Layout";
+}
+@using Microsoft.AspNetCore.Identity
+@using Library.ViewModels
+@model IEnumerable<IdentityRole>
+
+<h1>All Roles</h1>
+
+@if(Model.Any())
+{
+  <ul>
+    @foreach(var role in Model)
+    {
+      <div class="mb-3">
+        <li>Role Name: @role.Name</li>
+        <li>Role ID: @role.Id</li>
+        <a>@Html.ActionLink("Edit", "EditRole", new { id = @role.Id })</a>
+        <a>@Html.ActionLink("Delete", "DeleteRole", new { id = @role.Id })</a>
+      </div>
+    }
+  </ul>
+}
+else
+{
+  <p>No roles created.</p>
+}
+
+<p>@Html.ActionLink("Create Roles", "CreateRole")</p>

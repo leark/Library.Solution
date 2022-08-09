@@ -1,0 +1,35 @@
+@{
+  Layout = "_Layout";
+  ViewBag.PageTitle = "Edit Role";
+}
+@using Library.ViewModels
+@model EditRoleViewModel
+
+<h2>Edit Role</h2>
+<hr />
+@using (Html.BeginForm())
+{
+  @Html.HiddenFor(model => model.Id)
+
+  @Html.LabelFor(model => model.RoleName)
+  @Html.EditorFor(model => model.RoleName)
+
+  <input type="submit" value="Save" />
+}
+<hr />
+
+@if (Model.Users.Any())
+{
+  @foreach (var user in Model.Users)
+  {
+    <p>@user</p>
+  }
+}
+else
+{
+  <p>No users</p>
+}
+<p>@Html.ActionLink("Add Users", "AddUsers")</p>
+<p>@Html.ActionLink("Delete Users", "DeleteUsers")
+<hr />
+<p>@Html.ActionLink("Back to List", "ListRoles")</p>
