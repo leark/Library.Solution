@@ -28,14 +28,14 @@ namespace Library.Controllers
       return View(_db.Authors.ToList());
     }
 
-    [Authorize]
+    [Authorize(Roles = "Librarian")]
     public ActionResult Create()
     {
       ViewBag.PageTitle = "Add New Author";
       return View();
     }
 
-    [Authorize]
+    [Authorize(Roles = "Librarian")]
     [HttpPost]
     public ActionResult Create(Author author)
     {
@@ -56,7 +56,7 @@ namespace Library.Controllers
       return View(author);
     }
 
-    [Authorize]
+    [Authorize(Roles = "Librarian")]
     [HttpPost]
     public ActionResult Details(AuthorBook ab)
     {
@@ -68,7 +68,7 @@ namespace Library.Controllers
       return RedirectToAction("Details", new { id = ab.AuthorId });
     }
 
-    [Authorize]
+    [Authorize(Roles = "Librarian")]
     public ActionResult Edit(int id)
     {
       Author author = _db.Authors.FirstOrDefault(a => a.AuthorId == id);
@@ -76,7 +76,7 @@ namespace Library.Controllers
       return View(author);
     }
 
-    [Authorize]
+    [Authorize(Roles = "Librarian")]
     [HttpPost]
     public ActionResult Edit(Author author)
     {
@@ -85,7 +85,7 @@ namespace Library.Controllers
       return RedirectToAction("Details", new { id = author.AuthorId });
     }
 
-    [Authorize]
+    [Authorize(Roles = "Librarian")]
     public ActionResult Delete(int id)
     {
       Author author = _db.Authors.FirstOrDefault(a => a.AuthorId == id);
@@ -93,7 +93,7 @@ namespace Library.Controllers
       return View(author);
     }
 
-    [Authorize]
+    [Authorize(Roles = "Librarian")]
     [HttpPost, ActionName("Delete")]
     public ActionResult Deleted(int id)
     {
@@ -103,7 +103,7 @@ namespace Library.Controllers
       return RedirectToAction("Index");
     }
 
-    [Authorize]
+    [Authorize(Roles = "Librarian")]
     [HttpPost]
     public ActionResult DeleteAuthor(int authorBookId)
     {

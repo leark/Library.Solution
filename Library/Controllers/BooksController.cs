@@ -11,7 +11,7 @@ using System.Security.Claims;
 
 namespace Library.Controllers
 {
-  [Authorize]
+  [Authorize(Roles = "Librarian, Patron")]
   public class BooksController : Controller
   {
     private readonly LibraryContext _db;
@@ -39,12 +39,14 @@ namespace Library.Controllers
       return View((books, emptyList));
     }
 
+    [Authorize(Roles = "Librarian")]
     public ActionResult Create()
     {
       ViewBag.AuthorId = new SelectList(_db.Authors, "AuthorId", "Name");
       return View();
     }
 
+    [Authorize(Roles = "Librarian")]
     [HttpPost]
     public async Task<ActionResult> Create(Book book, int AuthorId)
     {
@@ -61,16 +63,19 @@ namespace Library.Controllers
       return RedirectToAction("Index");
     }
 
+    [Authorize(Roles = "Librarian, Patron")]
     public ActionResult Details(int id)
     {
       var thisBook = _db.Books
           .Include(book => book.JoinEntities)
           .ThenInclude(join => join.Author)
           .FirstOrDefault(book => book.BookId == id);
+      // var thisBook = _db.Books.FirstOrDefault(book => book.BookId == id);
       ViewBag.Copies = _db.Copies.Where(copy => copy.BookId == id);
       return View(thisBook);
     }
 
+    [Authorize(Roles = "Librarian")]
     public ActionResult Edit(int id)
     {
       var thisBook = _db.Books.FirstOrDefault(book => book.BookId == id);
@@ -78,6 +83,7 @@ namespace Library.Controllers
       return View(thisBook);
     }
 
+    [Authorize(Roles = "Librarian")]
     [HttpPost]
     public ActionResult Edit(Book book, int AuthorId)
     {
@@ -90,6 +96,7 @@ namespace Library.Controllers
       return RedirectToAction("Index");
     }
 
+    [Authorize(Roles = "Librarian")]
     public ActionResult AddAuthor(int id)
     {
       var thisBook = _db.Books.FirstOrDefault(book => book.BookId == id);
@@ -97,6 +104,7 @@ namespace Library.Controllers
       return View(thisBook);
     }
 
+    [Authorize(Roles = "Librarian")]
     [HttpPost]
     public ActionResult AddAuthor(Book book, int AuthorId)
     {
@@ -108,12 +116,14 @@ namespace Library.Controllers
       return RedirectToAction("Index");
     }
 
+    [Authorize(Roles = "Librarian")]
     public ActionResult Delete(int id)
     {
       var thisBook = _db.Books.FirstOrDefault(book => book.BookId == id);
       return View(thisBook);
     }
 
+    [Authorize(Roles = "Librarian")]
     [HttpPost, ActionName("Delete")]
     public ActionResult DeleteConfirmed(int id)
     {
@@ -123,6 +133,7 @@ namespace Library.Controllers
       return RedirectToAction("Index");
     }
 
+    [Authorize(Roles = "Librarian")]
     [HttpPost]
     public ActionResult DeleteAuthor(int joinId)
     {

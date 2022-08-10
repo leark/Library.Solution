@@ -9,9 +9,13 @@
 <p>@Html.ActionLink("View Authors", "Index", "Authors")</p>
 @if (User.Identity.IsAuthenticated)
 {
-<p>@Html.ActionLink("Log out", "Index", "Account")</p>
+  @if (User.IsInRole("Librarian") && User.IsInRole("Admin"))
+  {
+    <p>@Html.ActionLink("Admin Portal", "ListRoles", "Administration")</p>
+  }
+  <p>@Html.ActionLink("Log out", "Index", "Account")</p>
 }
 else
 {
-<p>@Html.ActionLink("Create an account", "Index", "Account")</p>
+  <p>@Html.ActionLink("Create an account", "Index", "Account")</p>
 }

@@ -29,7 +29,6 @@ else
 {
   <p>No users</p>
 }
-<p>@Html.ActionLink("Add Users", "AddUsers")</p>
-<p>@Html.ActionLink("Delete Users", "DeleteUsers")
+<p>@Html.ActionLink("Add or Remove Users", "EditUsersInRole", new { roleId = Model.Id })</p>
 <hr />
 <p>@Html.ActionLink("Back to List", "ListRoles")</p>
