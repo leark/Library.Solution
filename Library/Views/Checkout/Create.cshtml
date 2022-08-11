@@ -1,15 +1,15 @@
-@*@{
+@{
   Layout = "_Layout";
 }
-
+@using Library.Models
 @model Library.Models.Checkout
 
-<h4>Create new checkout</h4>
+<h4></h4>
 
 @using (Html.BeginForm())
 {
 
-  <input type="submit" value="Add checkout" class="btn btn-dark" />
+  <input type="submit" value="Add" class="btn btn-dark" />
 }
 
-<p>@Html.ActionLink("Show all checkouts", "Index")</p>*@
+<p>@Html.ActionLink("Show all checkouts", "Index")</p>

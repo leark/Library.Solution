@@ -2,20 +2,39 @@
   Layout = "_Layout";
 }
 @using System.Security.Claims
+@model IEnumerable<Library.Models.Book>
 
 <h1>Welcome to the Library!</h1>
-<p>@Html.ActionLink("View Books", "Index", "Books")</p>
-<p>@Html.ActionLink("View Book Copies", "Index", "Copies")</p>
-<p>@Html.ActionLink("View Authors", "Index", "Authors")</p>
-@if (User.Identity.IsAuthenticated)
+
+<hr />
+@using (@Html.BeginForm())
 {
-  @if (User.IsInRole("Librarian") && User.IsInRole("Admin"))
+  <div class="mb-3">
+    <input type="text" name="SearchString" placeholder="Search for Titles or Authors" />
+    <input type="submit" value="Search" />
+  </div>
+}
+@if (Model.Any())
+{
+  <p>There are books that match</p>
+}
+
+<div>
+  <p>@Html.ActionLink("View Books", "Index", "Books")</p>
+  <p>@Html.ActionLink("View Book Copies", "Index", "Copies")</p>
+  <p>@Html.ActionLink("View Authors", "Index", "Authors")</p>
+  <p>@Html.ActionLink("View Patrons", "Index", "Patrons")</p>
+  <p>@Html.ActionLink("Checkout", "Index", "Checkout")</p>
+  @if (User.Identity.IsAuthenticated)
   {
-    <p>@Html.ActionLink("Admin Portal", "ListRoles", "Administration")</p>
+    @if (User.IsInRole("Librarian") && User.IsInRole("Admin"))
+    {
+      <p>@Html.ActionLink("Admin Portal", "ListRoles", "Administration")</p>
+    }
+    <p>@Html.ActionLink("Log out", "Index", "Account")</p>
   }
-  <p>@Html.ActionLink("Log out", "Index", "Account")</p>
-}
-else
-{
-  <p>@Html.ActionLink("Create an account", "Index", "Account")</p>
-}
+  else
+  {
+    <p>@Html.ActionLink("Create an account", "Index", "Account")</p>
+  }
+</div>

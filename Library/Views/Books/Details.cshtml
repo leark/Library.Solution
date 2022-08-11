@@ -29,12 +29,14 @@
     @Model.Title (ID: @copy.CopyId) |
     @if (copy.Available)
     {
-      @:Status: <span class="available">Available</span>
+      @:Status: <span class="available">Available</span> |
+      @Html.ActionLink("Checkout Book", "Create", "Checkout", new { id = copy.CopyId})
     }
     else
     {
       @:Status: <span class="unavailable">Unavailable</span>
-    }
+    } 
+    
   </li>
   }
 </ul>

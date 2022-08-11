@@ -1,0 +1,24 @@
+@{
+  Layout = "_Layout";
+}
+@using Library.Models;
+@model IEnumerable<Library.Models.Patron>
+
+<h2>List of All Patrons</h2>
+<hr />
+@if (Model.Any())
+{
+  <ul>
+    @foreach (Patron patron in Model)
+    {
+      <li>@Html.ActionLink($"{patron.PatronName}", "Details", new { id = patron.PatronId })</li>
+    }
+  </ul>
+}
+else
+{
+  <p>There are no patrons registered for this library.</p>
+}
+<hr />
+<p>@Html.ActionLink("Add new Patron", "Create")</p>
+<p>@Html.ActionLink("Go Back Home", "Index", "Home")</p>
